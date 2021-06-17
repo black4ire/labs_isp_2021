@@ -1,0 +1,27 @@
+{% extends 'authentication/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 offset-md-3">
+            <h1>Sign up</h1>
+            <hr>
+            
+            {% include 'authentication/message_list.html' %}
+
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                    <div class="row">
+                        {% for field in form %}
+                        <div class="form-group col-lg-6 col-md-6">
+                            {{ field | as_crispy_field }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+        </div>
+    </div>
+
+    
+{% endblock %}
