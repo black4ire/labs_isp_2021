@@ -1,0 +1,23 @@
+{% extends 'note/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row" id="notes-homepage" style="margin-bottom: 2%;">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            {% for note in notes %}
+                <h4>{{ note.title }}</h4>
+                <div class="boxed">{% autoescape off %} {{ note.content }}{% endautoescape %}</div>
+                at {{ note.update_time }}
+                <a href="{% url 'edit' pk=note.pk %}" style="text-decoration: none; color: white">    
+                    <span class="btn btn-primary" style="border-radius: 0;"><i class="far fa-edit"> </i></span>
+                </a>
+
+                <a href="{% url 'delete' pk=note.pk %}">
+                    <span class="btn btn-danger" style="border-radius: 0;"><i class="far fa-trash-alt"></i></span>
+                </a>
+                <hr/>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
