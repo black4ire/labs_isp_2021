@@ -1,0 +1,76 @@
+---
+- name: Configure GCP webserver(s)
+  hosts: webservers
+  gather_facts: no
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: install python3
+      apt:
+        name: python3
+        state: latest
+
+    - name: Add an apt signing key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add apt repository for stable version
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-compose
+        state: present
+        update_cache: yes
+
+    - name: Update docker-compose 1.29.2
+      get_url:
+        url : https://github.com/docker/compose/releases/download/1.29.2/docker-compose-Linux-x86_64
+        dest: ~/docker-compose
+        mode: '+x'
+
+    - name: Check docker-compose exists
+      stat: path=~/docker-compose
+      register: docker_compose
+
+    - name: Move docker-compose to /usr/local/bin/docker-compose
+      command: mv ~/docker-compose /usr/local/bin/docker-compose
+      when: docker_compose.stat.exists
+
+    - name: Clone master
+      ansible.builtin.git:
+        repo: https://github.com/artegful/isp-labs.git
+        force: yes
+        dest: isp-labs
+
+    - name: Allow Django hosts
+      lineinfile: 
+        path: isp-labs/laba4/.env.prod
+        regexp: '^(.*)DJANGO_ALLOWED_HOSTS(.*)$' 
+        line: 'DJANGO_ALLOWED_HOSTS=*'
+        backrefs: yes
+
+    - name: "Stop apps"
+      command:
+        cmd: docker-compose -f isp-labs/laba4/docker-compose.prod.yml down -v
+
+    - name: "Deploy apps"
+      command: 
+        cmd: docker-compose -f isp-labs/laba4/docker-compose.prod.yml up --build -d
+      register: output
+
+    - debug: msg="{{ output.stdout_lines }}"
+    - debug: msg="{{ output.stderr_lines }}"
+
+    - name: "Collect static"
+      command:
+        cmd: docker-compose -f isp-labs/laba4/docker-compose.prod.yml exec web ./manage.py collectstatic --noinput
+
+    - name: "Migrate"
+      command:
+        cmd: docker-compose -f isp-labs/laba4/docker-compose.prod.yml exec web ./manage.py migrate --noinput
+        
