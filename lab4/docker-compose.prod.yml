@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   web:
-    image: artegful/noty-web
+    image: black4ire/lab4
     build:
       context: ./app
     command: gunicorn noty.wsgi:application --bind 0.0.0.0:8000
