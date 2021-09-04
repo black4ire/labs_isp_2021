@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <h1>New post</h1>
+    <form method="POST" class="post-form" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="post">
+            {{ form.as_p }}
+            <div class="absoulte-image">
+                <img src="{% if post.pic %}{{ post.pic.url }}{% else %}{% static 'media/blogpic.jpeg' %}{% endif %}" alt="NO IMAGE" class="round-image">
+            </div>
+            <button type="submit" class="save btn btn-default"><i class="far fa-save"></i></button>
+        </div> 
+    </form>
+{% endblock %}
