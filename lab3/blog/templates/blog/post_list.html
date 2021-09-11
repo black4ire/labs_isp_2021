@@ -8,9 +8,12 @@
         <div class="date">
             <p>{{ post.published_date }}</p>
         </div>
-        <h1 class='title'><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-        <p>{{ post.text|linebreaksbr|truncatechars:100 }}</p>
+        <h1 class='title'><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title|linebreaksbr|truncatechars:30 }}</a></h1>
+        <p>{{ post.text|linebreaksbr|truncatechars:130 }}</p>
         <img class="preview" src="{% if post.pic %}{{ post.pic.url }}{% else %}{% static 'media/blogpic.jpeg' %}{% endif %}" alt="NO IMAGE">
     </div>
 {% endfor %}
+    <!-- {% if request.user.is_authenticated %}
+    <a href="{% if request.user.favourite_post %}{% url 'post_detail' pk=request.user.favourite_post.pk %}{% else %}{% url 'empty_page' %}{% endif %}"><i class="far fa-heart"></i></a>
+    {% endif %} -->
 {% endblock %}

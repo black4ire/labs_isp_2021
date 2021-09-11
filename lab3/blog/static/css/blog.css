@@ -1,4 +1,4 @@
-body{
+body {
   position: relative;
 }
 
@@ -33,13 +33,15 @@ h4 {
   color: #092437;
   font-family: "Besley", cursive;
   position: absolute;
-  right: 60px;
+  right: 160px;
   top: 10px;
   display: inline;
 }
 
 .save {
-  float: right;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .post-form textarea,
@@ -77,14 +79,16 @@ h4 {
   color: #000;
 }
 
-.btn {
+.delete-btn {
   position: absolute;
   right: 10px;
   top: 5px;
 }
 
-.save{
-    top: 10px;
+.edit-btn {
+  position: absolute;
+  right: 50px;
+  top: 5px;
 }
 
 .title {
@@ -117,7 +121,7 @@ h4 {
   border-radius: 7px;
 }
 
-.center{
+.center {
   display: flex;
   justify-content: center;
   align-content: center;
@@ -125,7 +129,7 @@ h4 {
   flex-grow: 4;
 }
 
-.login-form{
+.login-form {
   display: flex;
   flex-basis: 800px;
   height: 86vh;
@@ -136,71 +140,129 @@ h4 {
   font-size: 4rem;
 }
 
-.login-form button, .login-form a, .login-form h1{
+.login-form button,
+.login-form a,
+.login-form h1 {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.login-form button{
-top: 5vh;
+.login-form button {
+  top: 5vh;
 }
 
-.login-form a{
-  top:10vh;
+.login-form a {
+  top: 10vh;
   left: 27vh;
   color: #000;
 }
 
-.login-form h1{
+.login-form h1 {
   left: 30vh;
   top: -10vh;
   font-size: 10rem;
 }
 
-h1.big-h1{
+h1.big-h1 {
   font-size: 8rem !important;
   top: -10%;
 }
 
-ul{
+.helptext {
   display: none;
 }
-.helptext{
-  display: none;
-}
-.regbtn{
+
+.regbtn {
   top: 10vh;
 }
 
-form input{
+form input {
   display: block;
 }
 
-.fa-sign-out-alt, .fa-sign-in-alt{
+.fa-sign-out-alt,
+.fa-sign-in-alt {
   position: absolute;
   font-size: 8rem;
-  color:white;
-  right: 10%;
+  color: white;
+  right: 17%;
   top: 20px;
 }
 
-.glyphicon-plus{
+.navbar-heart {
+  position: absolute;
+  font-size: 8rem;
+  color: white;
+  right: 9%;
+  top: 20px;
+}
+
+.glyphicon-plus {
   font-size: 7rem;
 }
 
-.absolute-image{
+.absolute-image {
   position: absolute;
   top: 15vh;
   right: 7vh;
 }
 
-.round-image{
+.round-image {
   border: 2px solid black;
   border-radius: 50%;
   width: 500px;
   height: 500px;
 }
+
+.like-btn{
+  position: absolute;
+  right: 95px;
+  top: 5px;
+}
+
+.errorlist {
+  display: none;
+}
+
+#pic-clear_id {
+  display: none;
+}
+
+.grid-category-container{
+  display: grid;
+  grid-template-rows: repeat(100px);
+  grid-template-columns: repeat(100px);
+  max-height: auto;
+  position: absolute;
+  right: 100px;
+  top: 210px;
+  width:400px;
+  height: auto;
+}
+.center-flex-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+.category-check-item{
+  /* border: 2px solid black; */
+  border-radius: 10px;
+  color: white;
+  background-color: #af7178;
+  font-size: 3rem;
+
+}
+.checked{
+  border: 2px solid black;
+  background-color: hsl(353, 36%, 35%);
+}
+
+
+
+
 
 /* width */
 ::-webkit-scrollbar {
@@ -208,11 +270,11 @@ form input{
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #000000;
+  background: #968d8d;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #4b4546;
+  background: #6b4f54;
 }
