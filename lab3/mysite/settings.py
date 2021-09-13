@@ -77,12 +77,12 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'USER': 'masha',
         'PASSWORD': '3737',
         'NAME': 'lab3db',
         'PORT': '5432',
-        'HOST': 'localhost'
+        'HOST': 'black_4ire.pythonanywhere.com'
     }
 }
 

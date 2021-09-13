@@ -34,15 +34,28 @@ def post_new(request):
 
             post.author = request.user
             post.published_date = timezone.now()
+
+            new_cats = []
+            catnames =  [cat.name for cat in Category.objects.all()]
+            for name in catnames:
+                if name in request.POST.keys():
+                    cat = Category.objects.get(name=name)
+                    new_cats.append(cat)
             post.save()
+            post.categories.set(new_cats)
             return redirect('post_detail', pk=post.pk)
         else:
             title = request.POST['title'].strip()
-            if len(Post.objects.filter(title=title)) > 0:
+            if Post.objects.filter(title=title).exists():
                 error_title = "Такой заголовок уже существует."
     else:
         form = PostForm()
-    return render(request, 'blog/post_edit.html', {'form': form, 'error_title': error_title})
+    categories = Category.objects.all()
+    return render(
+        request,
+        'blog/post_edit.html',
+        {'form': form, 'error_title': error_title, 'categories': categories}
+    )
 
 @login_required(login_url='login')
 def post_edit(request, pk):
