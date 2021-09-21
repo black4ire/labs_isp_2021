@@ -448,7 +448,7 @@ class TomlSerializer:
     def dump(self, obj, fname):
         if not fname.endswith(".toml"):
             raise NameError("File must have .toml extension!")
-        with open(fname, "w") as fhandler:
+        with open(fname, "a+") as fhandler:
             fhandler.write(self.dumps(obj))
 
     # DESERIALIZING SECTION #

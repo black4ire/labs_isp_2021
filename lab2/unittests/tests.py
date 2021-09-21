@@ -1,6 +1,6 @@
 import unittest
 from serializers.packer import Packer
-from .test_objects import *
+from unittests.test_objects import *
 
 
 class SerializerTester(unittest.TestCase):

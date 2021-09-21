@@ -173,7 +173,7 @@ class PickleSerializer:
     def dump(self, obj, fname):
         if not fname.endswith(".pickle"):
             raise NameError("File must have .pickle extension!")
-        with open(fname, "wb") as fhandler:
+        with open(fname, "ab+") as fhandler:
             fhandler.write(self.dumps(obj))
 
     # DESERIALIZING SECTION #

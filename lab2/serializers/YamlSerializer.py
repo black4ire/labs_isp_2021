@@ -173,7 +173,7 @@ class YamlSerializer:
     def dump(self, obj, fname):
         if not fname.endswith(".yaml"):
             raise NameError("File must have .yaml extension!")
-        with open(fname, "w") as fhandler:
+        with open(fname, "a+") as fhandler:
             fhandler.write(self.dumps(obj))
 
     # DESERIALIZING SECTION #

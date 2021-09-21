@@ -202,7 +202,7 @@ class JsonSerializer:
     def dump(self, obj, fname):
         if not fname.endswith(".json"):
             raise AttributeError("File must have .json extension!")
-        with open(fname, "w") as fhandler:
+        with open(fname, "a+") as fhandler:
             fhandler.write(self.dumps(obj))
 
     def _exception_notify(self, jstr, index):
