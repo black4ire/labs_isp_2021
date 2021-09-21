@@ -1,0 +1,23 @@
+{% extends 'blog/auth_page.html' %} {% block content %}
+<div class="center">
+  <div class="login-form">
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <h1 class="big-h1">Регистрация</h1>
+      
+        <label for="{{ form.username.id_for_label }}">Имя пользователя:</label>
+        {{ form.username }}
+  
+        <label for="{{ form.password1.id_for_label }}">Пароль:</label>
+        {{ form.password1 }}
+  
+        <label for="{{ form.password2.id_for_label }}">Повторите пароль:</label>
+        {{ form.password2 }}
+  
+        <button type="submit" class="regbtn">Зарегистрироваться</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
