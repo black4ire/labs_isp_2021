@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 
 urlpatterns = [
@@ -11,5 +11,7 @@ urlpatterns = [
     path('login/', views.login_user, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('empty_page/', views.empty_page, name='empty_page'),
-    path('post/<int:pk>/togglefavourite/', views.post_toggle_favourite, name='post_toggle_favourite')
+    path('post/<int:pk>/togglefavourite/', views.post_toggle_favourite, name='post_toggle_favourite'),
+    path('api/', include('api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]

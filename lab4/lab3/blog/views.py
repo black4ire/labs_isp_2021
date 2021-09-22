@@ -5,6 +5,10 @@ from .models import AdditionalUserFeatures, Category, Post
 from .forms import PostForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from multiprocessing import Process
+import logging
+
+log = logging.getLogger(__name__)
 
 def empty_page(request):
     return render(
@@ -31,7 +35,7 @@ def post_new(request):
         print("POST: ", request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-
+            p = Process(target=log.info(f'{request.user} added a post {post.title}'))
             post.author = request.user
             post.published_date = timezone.now()
 
@@ -70,6 +74,7 @@ def post_edit(request, pk):
         if form.is_valid():
             print('Form is valid.')
             post = form.save(commit=False)
+            p = Process(target=log.info(f'{request.user} edited a post {post.title}'))
             post.author = request.user
             post.published_date = timezone.now()
 
@@ -104,12 +109,14 @@ def post_delete(request, pk):
         return redirect('post_detail', pk=post.pk)
     else:
         post.delete()
+        p = Process(target=log.info(f'{request.user} deleted a post {post.title}'))
         return redirect('post_list')
 
 def register_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
+            p = Process(target=log.info(f'{request.user} registred'))
             user = form.save(commit=False)
             features = AdditionalUserFeatures()
             features.user = user

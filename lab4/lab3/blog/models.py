@@ -4,12 +4,15 @@ from django.utils import timezone
 
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=50, unique=True)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
     pic = models.ImageField(upload_to='blog/%Y/%m/%d', null=True, blank=True)
+
+    class Meta:
+        ordering = ['-created_date']
 
     def publish(self):
         self.published_date = timezone.now()

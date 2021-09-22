@@ -2,10 +2,11 @@ version: '3.7'
 
 services:
   web:
+    image: black4ire/lab4_web:latest
     build:
       context: ./lab3
       dockerfile: Dockerfile.prod
-    command: gunicorn hello_django.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn mysite.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - static_volume:/home/lab3/web/staticfiles
       - media_volume:/home/lab3/web/mediafiles
@@ -22,6 +23,7 @@ services:
     env_file:
       - ./.env.prod.db
   nginx:
+    image: black4ire/lab4_nginx:latest
     build: ./nginx
     volumes:
       - static_volume:/home/lab3/web/staticfiles
